@@ -1,14 +1,18 @@
 import pandas as pd
-import yfinance as yf
+import nasdaqdatalink
+
+
 
 # download Truist stock info for 2021
-df = yf.download("TFC",
-                 start = "2021-01-01",
-                 end = "2021-12-31")
+df = nasdaqdatalink.ApiConfig.api_key = ""
 
 df = df.loc[:, ["Adj Close"]]
 
 # calculate simple return
 df["simple_rtn"] = df["Adj Close"].pct_change()
+
+df["real_rtn"] = (
+    (df["simple_rtn"] + 1) / (df["inflation_rate"])
+)
 
 df
